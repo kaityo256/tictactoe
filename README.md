@@ -67,20 +67,20 @@
 
 逆に、そこに置いたら不利になる場所は青く表示されます。
 
-$ ruby ttt.rb 102022011 -s -o fig3.png
-Input state
+    $ ruby ttt.rb 102022011 -s -o fig3.png
+    Input state
 
-o| |x
- |x|x
- |o|o
+    o| |x
+    |x|x
+    |o|o
 
-Probability
+    Probability
 
-+0.00|-1.00|+0.00
-+0.00|+0.00|+0.00
-+1.00|+0.00|+0.00
+    +0.00|-1.00|+0.00
+    +0.00|+0.00|+0.00
+    +1.00|+0.00|+0.00
 
-Save to fig3.png
+    Save to fig3.png
 
 ![fig/fig3.png](fig/fig3.png)
 
