@@ -3,11 +3,11 @@ require "./tictactoe.rb"
 
 describe :a2b do
   example "テスト" do
-    expect(TTT.a2b([0, 0, 0, 0, 0, 0, 0, 0, 0])).to eq [0, 0]
-    expect(TTT.a2b([1, 0, 0, 0, 0, 0, 0, 0, 0])).to eq [1, 0]
-    expect(TTT.a2b([0, 1, 0, 0, 0, 0, 0, 0, 0])).to eq [2, 0]
-    expect(TTT.a2b([2, 0, 0, 0, 0, 0, 0, 0, 0])).to eq [0, 1]
-    expect(TTT.a2b([1, 2, 0, 0, 0, 0, 0, 0, 0])).to eq [1, 2]
+    expect(TTTWinCheck.a2b([0, 0, 0, 0, 0, 0, 0, 0, 0])).to eq [0, 0]
+    expect(TTTWinCheck.a2b([1, 0, 0, 0, 0, 0, 0, 0, 0])).to eq [1, 0]
+    expect(TTTWinCheck.a2b([0, 1, 0, 0, 0, 0, 0, 0, 0])).to eq [2, 0]
+    expect(TTTWinCheck.a2b([2, 0, 0, 0, 0, 0, 0, 0, 0])).to eq [0, 1]
+    expect(TTTWinCheck.a2b([1, 2, 0, 0, 0, 0, 0, 0, 0])).to eq [1, 2]
   end
 end
 

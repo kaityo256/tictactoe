@@ -24,34 +24,9 @@ class Array
   end
 end
 
-# TicTacToe Module
-module TTT
-  TIC = 1
-  TAC = 2
-  @qhash = {}
-
+# TicTacToe WinCheck
+module TTTWinCheck
   class << self
-    def show(state)
-      puts "Input state"
-      puts
-      b = [" ", "o", "x"]
-      arr = state.map { |v| b[v] }
-      puts arr[0..2].join("|")
-      puts arr[3..5].join("|")
-      puts arr[6..8].join("|")
-      puts
-    end
-
-    def show_prob(prob)
-      a = prob.map { |v| format("%+.2f", v) }
-      puts "Probability"
-      puts
-      puts a[0..2].join("|")
-      puts a[3..5].join("|")
-      puts a[6..8].join("|")
-      puts
-    end
-
     def a2b(arr)
       tic = 0
       tac = 0
@@ -93,6 +68,40 @@ module TTT
       return true if win_column(arr, player)
       return true if win_diagonal(arr, player)
       false
+    end
+  end
+end
+
+# TicTacToe Module
+module TTT
+  TIC = 1
+  TAC = 2
+  @qhash = {}
+
+  class << self
+    def show(state)
+      puts "Input state"
+      puts
+      b = [" ", "o", "x"]
+      arr = state.map { |v| b[v] }
+      puts arr[0..2].join("|")
+      puts arr[3..5].join("|")
+      puts arr[6..8].join("|")
+      puts
+    end
+
+    def show_prob(prob)
+      a = prob.map { |v| format("%+.2f", v) }
+      puts "Probability"
+      puts
+      puts a[0..2].join("|")
+      puts a[3..5].join("|")
+      puts a[6..8].join("|")
+      puts
+    end
+
+    def win(arr, player)
+      TTTWinCheck.win(arr, player)
     end
 
     def arr2index(arr, index)
