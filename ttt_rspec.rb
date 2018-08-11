@@ -1,5 +1,5 @@
 require "rspec"
-require "./ttt.rb"
+require "./tictactoe.rb"
 
 describe :a2b do
   example "テスト" do
