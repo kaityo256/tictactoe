@@ -28,6 +28,7 @@ end
 module TTT
   TIC = 1
   TAC = 2
+  @qhash = {}
 
   class << self
     def show(state)
@@ -94,23 +95,45 @@ module TTT
       false
     end
 
+    def arr2index(arr, index)
+      idx = 0
+      arr.each_with_index do |v, i|
+        idx += v * (3 ** i)
+      end
+      index + idx * 9
+    end
+
     def search_tic(index, arr)
       b = arr.deep_dup
       b[index] = TTT::TIC
-      return 1 if win(b, TTT::TIC)   # Tic 勝利
-      return 0 if b.count(0).zero?   # 引き分け
-      t = b.find_all_index(&:zero?)
-      r = t.map { |i| search_tac(i, b) }
-      r.mean
+      idx = arr2index(b, index)
+      return @qhash[idx] if @qhash.key?(idx)
+      v = 0
+      if win(b, TTT::TIC)
+        v = 1
+      elsif b.count(0).zero?
+        v = 0
+      else
+        t = b.find_all_index(&:zero?)
+        v = t.map { |i| search_tac(i, b) }.mean
+      end
+      @qhash[idx] = v
+      v
     end
 
     def search_tac(index, arr)
       b = arr.deep_dup
       b[index] = TTT::TAC
-      return -1 if win(b, TTT::TAC)
-      t = b.find_all_index(&:zero?)
-      r = t.map { |i| search_tic(i, b) }
-      r.mean
+      idx = arr2index(b, index)
+      return @qhash[idx] if @qhash.key?(idx)
+      v = -1
+      unless win(b, TTT::TAC)
+        t = b.find_all_index(&:zero?)
+        r = t.map { |i| search_tic(i, b) }
+        v = r.mean
+      end
+      @qhash[idx] = v
+      v
     end
 
     def search(arr)
@@ -126,12 +149,10 @@ module TTT
 
     def savetopng(state, filename)
       TTTImage.save_state(filename, state)
-      puts "Save to #{filename}"
     end
 
     def savetopng_withprob(state, prob, filename)
       TTTImage.save_state_withprob(filename, state, prob)
-      puts "Save to #{filename}"
     end
   end
 end

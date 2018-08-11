@@ -102,6 +102,7 @@ module TTTImage
     context = Cairo::Context.new(surface)
     draw_state(arr, context)
     surface.write_to_png(filename)
+    puts "Save to #{filename}"
   end
 
   def self.save_state_withprob(filename, arr, prob)
@@ -110,5 +111,6 @@ module TTTImage
     draw_state(arr, context)
     draw_prob(prob, arr, context)
     surface.write_to_png(filename)
+    puts "Save to #{filename}"
   end
 end
