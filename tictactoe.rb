@@ -105,18 +105,18 @@ module TTT
     end
 
     def arr2index(arr, index)
-      idx = 0
+      idx = index
       arr.each_with_index do |v, i|
-        idx += v * (3 ** i)
+        idx += v * (3 ** i) * 9
       end
-      index + idx * 9
+      idx
     end
 
     def search_tic(index, arr)
+      idx = arr2index(arr, index)
+      return @qhash[idx] if @qhash.key?(idx)
       b = arr.deep_dup
       b[index] = TTT::TIC
-      idx = arr2index(b, index)
-      return @qhash[idx] if @qhash.key?(idx)
       v = 0
       if win(b, TTT::TIC)
         v = 1
@@ -131,10 +131,10 @@ module TTT
     end
 
     def search_tac(index, arr)
+      idx = arr2index(arr, index)
+      return @qhash[idx] if @qhash.key?(idx)
       b = arr.deep_dup
       b[index] = TTT::TAC
-      idx = arr2index(b, index)
-      return @qhash[idx] if @qhash.key?(idx)
       v = -1
       unless win(b, TTT::TAC)
         t = b.find_all_index(&:zero?)
@@ -162,6 +162,17 @@ module TTT
 
     def savetopng_withprob(state, prob, filename)
       TTTImage.save_state_withprob(filename, state, prob)
+    end
+
+    def savehash
+      state = [0] * 9
+      search(state)
+      a = Array.new(3 ** 9 * 9) { 0 }
+      @qhash.each do |k, v|
+        a[k] = v
+      end
+      File.binwrite("data.dat", a.pack("d*"))
+      puts "Saved hash to data.dat"
     end
   end
 end

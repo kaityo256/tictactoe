@@ -1,8 +1,12 @@
 require "optparse"
 require "./tictactoe.rb"
 
-opts = {showprob: false}
+opts = {showprob: false, savehash: false}
 op = OptionParser.new
+
+op.on("-d") do |v|
+  opts[:savehash] = v
+end
 
 op.on("-o FILENAME") do |v|
   opts[:filename] = v
@@ -14,6 +18,11 @@ end
 
 op.parse!(ARGV)
 str = ARGV[0]
+
+if opts[:savehash]
+  TTT.savehash
+  exit
+end
 
 if str.nil?
   puts "Please specify state (ex. 020100111)"
