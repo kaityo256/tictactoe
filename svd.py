@@ -37,6 +37,12 @@ def svd(B, d):
 A = np.fromfile("data.dat", dtype="float64")
 B = A.reshape((27, 6561))
 
+X = svd(B, 27)
+X = X.reshape((19683, 9))
+np.savetxt("exact.txt",X[0],delimiter=" ")
+
+exit()
+
 for d in range(27, 13, -1):
     X = svd(B, d)
     r = linalg.norm(X-B) / linalg.norm(B)
