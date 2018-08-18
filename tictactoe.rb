@@ -1,5 +1,21 @@
 require "./image.rb"
 
+# Stringにメソッドを追加
+
+class String
+  def to_arr
+    if nil?
+      puts "Please specify state (ex. 020100111)"
+      exit
+    end
+    if self !~ /^[012]+$/ || self.length != 9
+      puts "Invalid state"
+      exit
+    end
+    split(//).map(&:to_i)
+  end
+end
+
 # Arrayにメソッドを追加
 class Array
   def deep_dup

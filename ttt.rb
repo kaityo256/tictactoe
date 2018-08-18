@@ -24,17 +24,7 @@ if opts[:savehash]
   exit
 end
 
-if str.nil?
-  puts "Please specify state (ex. 020100111)"
-  exit
-end
-
-if str !~ /^[012]+$/ || str.length != 9
-  puts "Invalid state"
-  exit
-end
-
-state = str.split(//).map(&:to_i)
+state = str.to_arr
 TTT.show(state)
 
 if opts[:showprob]
