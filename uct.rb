@@ -47,7 +47,7 @@ class TState
     TTT.show(@arr)
     mu = @award.div(@num)
     a = Array.new(9) { 0 }
-    @pos.each do |i|
+    @pos.size.times do |i|
       a[@pos[i]] = mu[i]
     end
     TTT.show_prob(a)
@@ -104,7 +104,7 @@ module TTTUCT
   end
 end
 
-a = "000000000".split(//).map(&:to_i)
+a = "020010000".split(//).map(&:to_i)
 
 srand(1)
 
