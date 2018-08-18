@@ -23,7 +23,7 @@ srand(1)
 
 n = opts[:i]
 n.times do
-  TTTUCT.search_tic(a)
+  TTTUCT.search(a)
 end
 s = TTTUCT.get_state(a)
 

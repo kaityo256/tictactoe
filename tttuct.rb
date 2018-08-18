@@ -109,5 +109,13 @@ module TTTUCT
       s.add(i, v)
       v
     end
+
+    def search(arr)
+      if arr.count(0).odd?
+        search_tic(arr)
+      else
+        search_tac(arr)
+      end
+    end
   end
 end
