@@ -1,4 +1,3 @@
-require "optparse"
 require "./image.rb"
 
 # Arrayにメソッドを追加
@@ -21,6 +20,10 @@ class Array
       a << i if yield v
     end
     a
+  end
+
+  def div(arr)
+    zip(arr).map { |x, y| x.to_f / y }
   end
 end
 
@@ -173,6 +176,7 @@ module TTT
       end
       File.binwrite("data.dat", a.pack("d*"))
       puts "Saved hash to data.dat"
+      puts @qhash.keys.size
     end
   end
 end
