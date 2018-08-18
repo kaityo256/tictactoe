@@ -2,9 +2,8 @@ require "./tictactoe.rb"
 
 # 状態を記憶する
 class TState
-  attr_accessor :num, :award
-
   def initialize(arr)
+    # 現在の状態
     @arr = arr
     # おける場所
     @pos = arr.find_all_index(&:zero?)
@@ -14,23 +13,23 @@ class TState
     @award = Array.new(@pos.size) { 0.0 }
   end
 
-  # UCBの配列を作る
-  def ucb(player)
+  # UCBに従って場所を選ぶ
+  def ucb_select(player)
     mu = @award.div(@num)
     mu.map!(&:-@) if player == TTT::TAC
     total = @num.inject(:+).to_f
-    Array.new(@num.size) do |j|
+    r = Array.new(@num.size) do |j|
       u = Math.sqrt(2.0 * Math.log(total) / @num[j])
       mu[j] + u
     end
+    r.index(r.max)
   end
 
   def select(player)
     t = @num.find_all_index(&:zero?)
     if t.size.zero?
-      # すべて選んでいたら、UCBが最大のものを選ぶ
-      r = ucb(player)
-      @pos[r.index(r.max)]
+      # すべて選んだことがあれば、UCBが最大のものを選ぶ
+      @pos[ucb_select(player)]
     else
       # もしまだ選んでいない場所があれば、その場所をランダムに選ぶ
       @pos[t.sample]
@@ -108,7 +107,7 @@ a = "020010000".split(//).map(&:to_i)
 
 srand(1)
 
-100000.times do
+10000.times do
   TTTUCT.search_tic(a)
 end
 TTTUCT.get_state(a).show
