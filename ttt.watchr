@@ -1,3 +1,3 @@
 watch( '.*\.rb' ) do 
-  system 'rspec ttt_rspec.rb'
+  system 'rspec'
 end
