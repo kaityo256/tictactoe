@@ -1,14 +1,13 @@
 require "./image.rb"
 
 # Stringにメソッドを追加
-
 class String
   def to_arr
     if nil?
       puts "Please specify state (ex. 020100111)"
       exit
     end
-    if self !~ /^[012]+$/ || self.length != 9
+    if self !~ /^[012]+$/ || length != 9
       puts "Invalid state"
       exit
     end
@@ -40,6 +39,10 @@ class Array
 
   def div(arr)
     zip(arr).map { |x, y| x.to_f / y }
+  end
+
+  def max_index
+    index(max)
   end
 end
 

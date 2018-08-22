@@ -29,7 +29,4 @@ s = TTTUCT.get_state(a)
 
 s.show
 
-if opts.key? :filename
-  s.savetopng(opts[:filename])
-end
-
+s.savetopng(opts[:filename]) if opts.key? :filename

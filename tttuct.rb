@@ -13,16 +13,22 @@ class TState
     @award = Array.new(@pos.size) { 0.0 }
   end
 
+  # 期待値と回数配列からUCBの配列を作成する
+  def ucb_array(ave, num)
+    total = num.sum.to_f
+    r = Array.new(num.size) do |j|
+      u = Math.sqrt(2.0 * Math.log(total) / num[j])
+      ave[j] + u
+    end
+    r
+  end
+
   # UCBに従って場所を選ぶ
   def ucb_select(player)
     mu = @award.div(@num)
     mu.map!(&:-@) if player == TTT::TAC
-    total = @num.inject(:+).to_f
-    r = Array.new(@num.size) do |j|
-      u = Math.sqrt(2.0 * Math.log(total) / @num[j])
-      mu[j] + u
-    end
-    r.index(r.max)
+    r = ucb_array(mu, @num)
+    r.max_index
   end
 
   def select(player)
@@ -70,19 +76,10 @@ module TTTUCT
       p @shash
     end
 
-    # TTT.arr2indexとは意味が異なるので注意
-    def arr2index(arr)
-      index = 0
-      arr.each_with_index do |v, i|
-        index += v * (3 ** i)
-      end
-      index
-    end
-
     def get_state(arr)
-      index = arr2index(arr)
-      @shash[index] = TState.new(arr) unless @shash.key?(index)
-      @shash[index]
+      key = arr.join("")
+      @shash[key] = TState.new(arr) unless @shash.key?(key)
+      @shash[key]
     end
 
     # TICの手番
